@@ -15,10 +15,7 @@ class JobScheduler : JobService() {
         return true
     }
 
-    override fun onStopJob(job: JobParameters?): Boolean {
-        return true
-    }
-
+    override fun onStopJob(job: JobParameters?) = true
 
     private fun simpleJob(job: JobParameters) {
         Log.d("JobScheduler", "Ran job ${job.tag}")
@@ -28,7 +25,7 @@ class JobScheduler : JobService() {
     companion object {
         private const val SIMPLE_JOB_TAG = "uk.co.jakelee.scheduledjobs.job"
 
-        fun scheduleAll(context: Context) {
+        fun scheduleJob(context: Context) {
             val dispatcher = FirebaseJobDispatcher(GooglePlayDriver(context))
             val exampleJob = dispatcher.newJobBuilder()
                 .setService(JobScheduler::class.java)
@@ -42,7 +39,7 @@ class JobScheduler : JobService() {
             Log.d("JobScheduler", "Scheduled job")
         }
 
-        fun cancelAll(context: Context) {
+        fun cancelJobs(context: Context) {
             FirebaseJobDispatcher(GooglePlayDriver(context)).cancelAll()
         }
     }
